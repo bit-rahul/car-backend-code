@@ -1,0 +1,21 @@
+{
+  "name": "car-backend-code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahulsups/car-backend-code.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rahulsups/car-backend-code/issues"
+  },
+  "homepage": "https://github.com/rahulsups/car-backend-code#readme"
+}
