@@ -1,41 +1,7 @@
 const Car = require('../models/car.model');
 
-// Create and Save a new car
-// exports.create = (req, res) => {
-//     // Validate request
-//     if(!req.body.content) {
-//         return res.status(400).send({
-//             message: "Car details can not be empty"
-//         });
-//     }
 
-//     // Add a Car
-//     const car = new Car({
-//         model: req.body.model,
-//         // name: req.body.name,
-//         // color: req.body.color,
-//         // seater: req.body.seater,
-//         // rent: req.body.rent,
-//         // booked: req.body.booked,
-//         // vehicle_number: req.body.vehicle_number,
-//         // fuel_type: req.body.fuel_type,
-//         // about: req.body.about,
-//         // description: req.body.description,
-//         // booking_details: req.body.booking_details
-//     });
-
-//     // Save Car in the database
-//     car.save()
-//     .then(data => {
-//         res.send(data);
-//     }).catch(err => {
-//         res.status(500).send({
-//             message: err.message || "Some error occurred while adding the Car."
-//         });
-//     });
-// };
-
-// Add a new car
+// 1. Add a new car
 exports.create = (req, res) => {
     // Validate request
 
@@ -69,39 +35,26 @@ exports.create = (req, res) => {
         });
 };
 
-// Retrieve and return all cars from the database. {Seach by model supported}
 
+
+// 2. Retrieve and return all cars from the database.
 exports.findAll = (req, res) => {
 
-    if (req) {
-        const model = req.query.model;
-        var condition = model ? { model: { $regex: new RegExp(model), $options: "i" } } : {};
-
-    }
-    Car.find(condition)
+    Car.find({})
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving cars."
+                    err.message || "Error occurred while retrieving cars."
             });
         });
 };
-// exports.findAll = (req, res) => {
-//     Car.find()
-//         .then(cars => {
-//             res.send(cars);
-//         }).catch(err => {
-//             res.status(500).send({
-//                 message: err.message || "Some error occurred while retrieving list of cars."
-//             });
-//         });
 
-// };
 
-// Find a single car with a carId
+
+// 3. Find a single car with a carId
 exports.findOne = (req, res) => {
     Car.findById(req.params.carId)
         .then(car => {
@@ -123,7 +76,8 @@ exports.findOne = (req, res) => {
         });
 };
 
-// Update a car identified by the carId in the request
+
+// 4. Update a car identified by the carId in the request
 exports.update = (req, res) => {
 
     // Find car and update it with the request body
@@ -158,6 +112,8 @@ exports.update = (req, res) => {
         });
 };
 
+
+// 5. Delete one car by ID
 exports.delete = (req, res) => {
     const id = req.params.carId;
 
@@ -185,6 +141,8 @@ exports.delete = (req, res) => {
         });
 };
 
+
+// 6. Delete all cars in database
 exports.deleteAll = (req, res) => {
     Car.deleteMany({})
         .then(data => {
@@ -200,6 +158,8 @@ exports.deleteAll = (req, res) => {
         });
 };
 
+
+// 7. Get Car details by model 
 exports.getDetails = (req, res) => {
     if (req) {
         const model = req.query.model;
@@ -217,17 +177,3 @@ exports.getDetails = (req, res) => {
             });
         });
 };
-
-// exports.searchBy = (req, res) => {
-//     Car.find(req.params)
-//         .then(data => {
-//             console.log(req.params)
-//             res.send(data);
-//         })
-//         .catch(err => {
-//             res.status(500).send({
-//                 message:
-//                     err.message || "Some error occurred while retrieving cars."
-//             });
-//         });
-// };

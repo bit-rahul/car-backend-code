@@ -21,7 +21,6 @@ module.exports = (app) => {
     // Delete all cars
     app.delete("/cars", cars.deleteAll);
 
+    // Get Car details by model 
     app.get('/car-details', cars.getDetails);
-
-    // router.get("/cars/search", cars.searchBy);
 }
