@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/rahulsups/car-backend-code/issues"
   },
-  "homepage": "https://github.com/rahulsups/car-backend-code#readme"
+  "homepage": "https://github.com/rahulsups/car-backend-code#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
