@@ -79,35 +79,25 @@ exports.findOne = (req, res) => {
 
 // 4. Update a car identified by the carId in the request
 exports.update = (req, res) => {
+    if (!req.body) {
+        return res.status(400).send({
+            message: "Data to update can not be empty!"
+        });
+    }
 
-    // Find car and update it with the request body
-    Car.findByIdAndUpdate(req.params.carId, {
-        model: req.body.model,
-        name: req.body.name,
-        color: req.body.color,
-        seater: req.body.seater,
-        rent: req.body.rent,
-        booked: req.body.booked == true ? true : false,
-        vehicle_number: req.body.vehicle_number,
-        fuel_type: req.body.fuel_type,
-        about: req.body.about,
-        description: req.body.description
-    }, { new: true, useFindAndModify: false})
-        .then(car => {
-            if (!car) {
-                return res.status(404).send({
-                    message: "Car not found with id " + req.params.carId
+    const id = req.params.carId;
+
+    Car.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+        .then(data => {
+            if (!data) {
+                res.status(404).send({
+                    message: `Cannot update Car with id=${id}. Maybe Car was not found!`
                 });
-            }
-            res.send(car);
-        }).catch(err => {
-            if (err.kind === 'ObjectId') {
-                return res.status(404).send({
-                    message: "Car not found with id " + req.params.carId
-                });
-            }
-            return res.status(500).send({
-                message: "Error updating car with id " + req.params.carId
+            } else res.send({ message: "Car was updated successfully." });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Car with id=" + id
             });
         });
 };
